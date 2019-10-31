@@ -1,4 +1,5 @@
 <style lang="scss">
+@import '~@/style/init.scss';
 
 #app{
 	position: absolute;
