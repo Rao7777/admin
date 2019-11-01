@@ -20,14 +20,7 @@
             <svg class="icon" aria-hidden="true">
                 <use xlink:href="#icon-Artboard"></use>
             </svg>
-            <span slot="title">Hello</span>
-        </el-menu-item>
-
-        <el-menu-item index="/resure">
-            <svg class="icon icon" aria-hidden="true">
-                <use xlink:href="#icon-huaban"></use>
-            </svg>
-            <span slot="title">resure</span>
+            <span slot="title">Hello {{userName}}</span>
         </el-menu-item>
 
         <el-menu-item index="/today">
@@ -44,6 +37,13 @@
             <span slot="title">蓝色星球</span>
         </el-menu-item>
 
+        <el-menu-item index="/resure">
+            <svg class="icon icon" aria-hidden="true">
+                <use xlink:href="#icon-huaban"></use>
+            </svg>
+            <span slot="title">About Me</span>
+        </el-menu-item>
+
         <el-menu-item index="3" disabled>
             <svg class="icon icon" aria-hidden="true">
                 <use xlink:href="#icon-shu"></use>
@@ -54,11 +54,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
+    name: 'm-nav',
     data() {
         return {
             isCollapse: false,
         }
+    },
+    computed: {
+        ...mapGetters({
+            userName: 'getUserName'
+        })
     },
     methods: {
         handleOpen(){
