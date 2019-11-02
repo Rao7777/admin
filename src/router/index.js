@@ -13,7 +13,8 @@ const routes = [
 		component: () => import('../views/login.vue')
 	}, {
 		path: '/',
-		redirect: '/home',
+		redirect: '/earth',
+		// redirect: '/home',
 		component: Layout,
 		children: [{
 			path: '/home',
