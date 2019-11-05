@@ -1,58 +1,53 @@
+<style lang="scss">
+.earth-warp{
+    padding: 20px 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    .world-map{
+        width: 1000px;
+        height: 600px;
+    }
+}
+</style>
+
 <template>
-    <div>
-        <upload-excel @exportJson="exportJson"></upload-excel>
+    <div class="earth-warp">
+        <upload-excel @exportJson="exportJson" v-if="userName === 'raoqi'"></upload-excel>
 
-        <div v-for="item in touristList" :key=item.id>
-            {{item.name}}
-        </div>
-
-        <v-chart :options="option"/>
-
+        <v-chart class="world-map" :options="option" theme='macarons'/>
     </div>
 </template>
 
 <script>
 import UploadExcel from '@/components/uploadExcel'
-import {chinaTouristAttr, worldTouristAttr, tempChinaArr } from '@/assets/data/tourist.js'
+import { mapGetters } from 'vuex'
+import 'echarts/theme/macarons.js'
+import {map_series} from './echarts_opt.js'
 
 export default {
-    name: 'earch',
+    name: 'earth',
     components: {
         UploadExcel
     },
     data(){
         return {
-            touristList: [...chinaTouristAttr, ...worldTouristAttr],
             option: {
                 title : {
-                text: '国内旅游地图',
-                x:'center'
-            },
-            tooltip : {
-                trigger: 'item'
-            },
-            // roamController: {
-            //     show: true,
-            //     x: 'right',
-            //     mapTypeControl: {
-            //         'china': true
-            //     }
-            // },
-            series : [
-                {
-                    name: 'iphoneX',
-                    type: 'map',
-                    mapType: 'china',
-                    roam: false,
-                    itemStyle:{
-                        normal:{label:{show:true}},
-                        emphasis:{label:{show:true}}
-                    },
-                    data: tempChinaArr
-                }
-            ]
-            },
+                    text: '世界旅游地图',
+                    x:'center'
+                },
+                tooltip : {
+                    trigger: 'item'
+                },
+                series: map_series
+            }
         }
+    },
+    computed: {
+        ...mapGetters({
+            userName: 'getUserName'
+        })
     },
     methods: {
         exportJson(arr){
@@ -83,8 +78,6 @@ export default {
 
             console.log(JSON.stringify(_data))
         },
-       
     },
-  
 }
 </script>
